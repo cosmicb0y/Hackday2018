@@ -17,8 +17,8 @@ public class AniImage extends CommonImage {
         int size = imgList.size();
         magickImageList = new MagickImage[size];
         InputStream is = null;
-        String path = "./uploads/";
-        String gifPath = "./gif/";
+        String path = "C:/Users/jangh/Documents/uploads/";
+        String gifPath = "C:/Users/jangh/Documents/results/";
         for (int i = 0; i < size; i++) {
             magickImageList[i] = openImg(path + imgList.get(i));
             try {
