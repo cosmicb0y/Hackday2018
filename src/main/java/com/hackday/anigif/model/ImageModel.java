@@ -6,24 +6,32 @@ import java.util.ArrayList;
 
 public class ImageModel {
 
-    private MagickImage image = null;
+    private String imageName;
     String[] extentionList = {"jpg", "png", "gif"};
     private String path = "C:/Users/jangh/Documents/uploads/";
     private String resultPath = "C:/Users/jangh/Documents/results/";
     private ArrayList<String> imageList;
     private int delay;
+    private int width;
+    private int height;
 
     public ImageModel(ArrayList<String> imageList, int delay) {
         this.imageList = imageList;
         this.delay = delay;
     }
 
-    public MagickImage getImage() {
-        return image;
+    public ImageModel(String image, int width, int height) {
+        this.imageName = image;
+        this.width = width;
+        this.height = height;
     }
 
-    public void setImage(MagickImage image) {
-        this.image = image;
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     public String[] getExtentionList() {
@@ -53,5 +61,21 @@ public class ImageModel {
 
     public void setDelay(int delay) {
         this.delay = delay;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

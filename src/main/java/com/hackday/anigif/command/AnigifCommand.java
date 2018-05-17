@@ -4,7 +4,6 @@ import com.hackday.anigif.model.ImageModel;
 import magick.MagickException;
 import magick.MagickImage;
 
-
 public class AnigifCommand extends FileManager implements AniCommand {
 
     @Override
@@ -30,9 +29,9 @@ public class AnigifCommand extends FileManager implements AniCommand {
             System.out.println("error while making gif");
         }
 
-        writeImg(gifImage, image.getResultPath() + image.getImageList().get(0) + "-animated.gif");
+        writeImg(gifImage, image.getResultPath() +  getFileName(image.getImageName()) + "-animated.gif");
 
-        byte[] gifByte = ImageToByte(image.getResultPath() + image.getImageList().get(0) + "-animated.gif");
+        byte[] gifByte = ImageToByte(image.getResultPath() +  getFileName(image.getImageName()) + "-animated.gif");
 
 
         return gifByte;

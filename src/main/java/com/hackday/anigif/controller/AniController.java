@@ -2,16 +2,14 @@ package com.hackday.anigif.controller;
 
 import com.hackday.anigif.command.AniCommand;
 import com.hackday.anigif.command.AnigifCommand;
+import com.hackday.anigif.command.ResizeCommand;
 import com.hackday.anigif.model.ImageModel;
 import org.apache.commons.io.FilenameUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.MediaType;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.ArrayList;
@@ -50,6 +48,19 @@ public class AniController {
 
         return gif;
     }
+
+    @RequestMapping(value = "/resize/{name:.+}", method = RequestMethod.GET, produces = MediaType.IMAGE_GIF_VALUE)
+    public @ResponseBody byte[] resize(@PathVariable String name, @RequestParam(value = "width") int width, @RequestParam(value = "height") int height) {
+        System.out.println("resize()");
+
+        command = new ResizeCommand();
+        ImageModel imageModel = new ImageModel(name, width, height);
+
+        byte[] resizedImage = command.execute(imageModel);
+
+        return resizedImage;
+    }
+
 
     public boolean checkExtension(String filename, String[] extensionList) {
         String ext = FilenameUtils.getExtension(filename);
