@@ -25,6 +25,9 @@ repositories {
 
 
 dependencies {
+    compile files('libs/jmagick.jar')
+    compile('commons-io:commons-io:2.6')
+    compile('org.json:json:20180130')
     compile('org.springframework.boot:spring-boot-starter-web')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
