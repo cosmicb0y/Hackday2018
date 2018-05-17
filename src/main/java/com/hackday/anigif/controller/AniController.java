@@ -2,6 +2,7 @@ package com.hackday.anigif.controller;
 
 import com.hackday.anigif.command.AniCommand;
 import com.hackday.anigif.command.AnigifCommand;
+import com.hackday.anigif.command.MergeCommand;
 import com.hackday.anigif.command.ResizeCommand;
 import com.hackday.anigif.model.ImageModel;
 import org.apache.commons.io.FilenameUtils;
@@ -12,8 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
+import java.util.regex.Pattern;
 
 
 @RestController
@@ -59,6 +60,31 @@ public class AniController {
         byte[] resizedImage = command.execute(imageModel);
 
         return resizedImage;
+    }
+
+    @RequestMapping(value = "/merge/{name:.+}", method = RequestMethod.GET)
+    public @ResponseBody byte[] merge(@PathVariable String name, @RequestParam(value = "image") String param) {
+        System.out.println("merge()");
+
+        ArrayList<String> imageList = new ArrayList<>();
+
+        imageList.add(name);
+        imageList.add(param);
+
+        String[] gifExtention = {"gif"};
+
+        for (int i = 0; i < imageList.size(); i++) {
+            if (!checkExtension(imageList.get(i), gifExtention)) {
+                System.out.println("There is image file doesn't gif");
+                return null;
+            }
+        }
+
+        command = new MergeCommand();
+        ImageModel imageModel = new ImageModel(imageList);
+        byte[] mergeGif = command.execute(imageModel);
+
+        return mergeGif;
     }
 
 

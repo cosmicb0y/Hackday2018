@@ -15,6 +15,10 @@ public class ImageModel {
     private int width;
     private int height;
 
+
+    public ImageModel(ArrayList<String> imageList) {
+        this.imageList = imageList;
+    }
     public ImageModel(ArrayList<String> imageList, int delay) {
         this.imageList = imageList;
         this.delay = delay;
