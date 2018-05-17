@@ -17,8 +17,10 @@ public class AniImage extends CommonImage {
         int size = imgList.size();
         magickImageList = new MagickImage[size];
         InputStream is = null;
+        String path = "./uploads/";
+        String gifPath = "./gif/";
         for (int i = 0; i < size; i++) {
-            magickImageList[i] = openImg(imgList.get(i));
+            magickImageList[i] = openImg(path + imgList.get(i));
             try {
                 magickImageList[i].setDelay(delay);
             } catch (MagickException e) {
@@ -35,7 +37,7 @@ public class AniImage extends CommonImage {
         }
 
         try {
-            gifImage.setFileName(imgList.get(0) + "-animated.gif");
+            gifImage.setFileName(gifPath + imgList.get(0) + "-animated.gif");
         } catch (MagickException e) {
             System.out.println("error while setting file name");
         }
@@ -47,7 +49,7 @@ public class AniImage extends CommonImage {
         }
 
         try {
-            is = new BufferedInputStream(new FileInputStream(imgList.get(0) + "-animated.gif"));
+            is = new BufferedInputStream(new FileInputStream(gifPath + imgList.get(0) + "-animated.gif"));
         } catch (IOException e) {
             System.out.println("error while opening gif image");
         }
