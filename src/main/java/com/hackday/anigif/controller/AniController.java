@@ -49,7 +49,7 @@ public class AniController {
         return gif;
     }
 
-    @RequestMapping(value = "/resize/{name:.+}", method = RequestMethod.GET, produces = MediaType.IMAGE_GIF_VALUE)
+    @RequestMapping(value = "/resize/{name:.+}", method = RequestMethod.GET)
     public @ResponseBody byte[] resize(@PathVariable String name, @RequestParam(value = "width") int width, @RequestParam(value = "height") int height) {
         System.out.println("resize()");
 
