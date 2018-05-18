@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class ImageModel {
 
     private MagickImage image = null;
-    ArrayList<String> extentionList;
+    String[] extentionList = {"jpg", "png", "gif"};
     private String path = "C:/Users/jangh/Documents/uploads/";
     private String resultPath = "C:/Users/jangh/Documents/results/";
     private ArrayList<String> imageList;
@@ -26,12 +26,8 @@ public class ImageModel {
         this.image = image;
     }
 
-    public ArrayList<String> getExtentionList() {
+    public String[] getExtentionList() {
         return extentionList;
-    }
-
-    public void setExtentionList(ArrayList<String> extentionList) {
-        this.extentionList = extentionList;
     }
 
     public String getPath() {

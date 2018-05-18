@@ -13,12 +13,13 @@ import java.io.InputStream;
 public class FileManager {
     public MagickImage openImg(String name) {
         ImageInfo info;
-        MagickImage image = null;
+        MagickImage image;
         try {
             info = new ImageInfo(name);
             image = new MagickImage(info);
         } catch (MagickException e) {
             System.out.println("error while opening file");
+            return null;
         }
         return image;
     }
