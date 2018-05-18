@@ -53,4 +53,11 @@ public class FileManager {
         return gifByte;
     }
 
+    public String getFileName(String fullName) {
+        int index = fullName.lastIndexOf(".");
+        String fileName = fullName.substring(0, index);
+
+        return fileName;
+    }
+
 }
