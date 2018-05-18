@@ -15,6 +15,9 @@ public class ImageModel {
     private int width;
     private int height;
 
+    public ImageModel(String imageName) {
+        this.imageName = imageName;
+    }
 
     public ImageModel(ArrayList<String> imageList) {
         this.imageList = imageList;

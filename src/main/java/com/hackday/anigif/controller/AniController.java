@@ -1,9 +1,7 @@
 package com.hackday.anigif.controller;
 
-import com.hackday.anigif.command.AniCommand;
-import com.hackday.anigif.command.AnigifCommand;
-import com.hackday.anigif.command.MergeCommand;
-import com.hackday.anigif.command.ResizeCommand;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hackday.anigif.command.*;
 import com.hackday.anigif.model.ImageModel;
 import org.apache.commons.io.FilenameUtils;
 import org.json.JSONArray;
@@ -13,8 +11,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import javax.print.attribute.standard.Media;
 import java.util.*;
-import java.util.regex.Pattern;
+
 
 
 @RestController
@@ -86,6 +85,30 @@ public class AniController {
 
         return mergeGif;
     }
+
+
+    @RequestMapping(value = "/break/{name:.+}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Map<String, Object> breakFrame(@PathVariable String name) {
+        System.out.println("breakFrame()");
+
+        String[] gifExtention = {"gif"};
+
+        if (!checkExtension(name, gifExtention)) {
+            System.out.println("There is image file doesn't gif");
+            return null;
+        }
+
+        BreakCommand command = new BreakCommand();
+        ImageModel imageModel = new ImageModel(name);
+        int imageNum = command.execute(imageModel);
+
+        Map map = new HashMap<String, Object>();
+        map.put("size", imageNum);
+        System.out.println(map.toString());
+
+        return map;
+    }
+
 
 
     public boolean checkExtension(String filename, String[] extensionList) {
