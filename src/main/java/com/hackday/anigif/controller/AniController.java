@@ -1,6 +1,5 @@
 package com.hackday.anigif.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.hackday.anigif.command.*;
 import com.hackday.anigif.model.ImageModel;
 import org.apache.commons.io.FilenameUtils;
@@ -11,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import javax.print.attribute.standard.Media;
 import java.util.*;
 
 
@@ -87,8 +85,9 @@ public class AniController {
     }
 
 
-    @RequestMapping(value = "/break/{name:.+}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Map<String, Object> breakFrame(@PathVariable String name) {
+    @GetMapping(value = "/break/{name:.+}", produces = "application/json", headers="Content-type=application/json")
+    @ResponseBody
+    public String breakFrame(@PathVariable String name) {
         System.out.println("breakFrame()");
 
         String[] gifExtention = {"gif"};
@@ -102,11 +101,12 @@ public class AniController {
         ImageModel imageModel = new ImageModel(name);
         int imageNum = command.execute(imageModel);
 
-        Map map = new HashMap<String, Object>();
-        map.put("size", imageNum);
-        System.out.println(map.toString());
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("number", imageNum);
 
-        return map;
+
+
+        return map.toString();
     }
 
 
