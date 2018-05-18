@@ -1,11 +1,11 @@
 package com.hackday.anigif.command;
 
-import org.springframework.ui.Model;
+import com.hackday.anigif.model.ImageModel;
 
 
 public class BreakCommand implements AniCommand {
     @Override
-    public byte[] execute(Model model) {
+    public byte[] execute(ImageModel image) {
         return null;
     }
 }

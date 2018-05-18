@@ -2,14 +2,19 @@ package com.hackday.anigif.controller;
 
 import com.hackday.anigif.command.AniCommand;
 import com.hackday.anigif.command.AnigifCommand;
+import com.hackday.anigif.model.ImageModel;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.http.MediaType;
-import org.springframework.ui.Model;
+
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+
 
 @RestController
 @EnableWebMvc
@@ -17,12 +22,21 @@ public class AniController {
     AniCommand command = null;
 
     @RequestMapping(value = "/anigif", method = RequestMethod.POST, produces = MediaType.IMAGE_GIF_VALUE)
-    public byte[] anigif(HttpServletRequest request, Model model) {
+    public byte[] anigif(@RequestBody String request) {
         System.out.println("anigif()");
 
-        model.addAttribute("request",request);
+        JSONObject obj = new JSONObject(request);
+        JSONArray jsonArr = obj.getJSONArray("paths");
+        ArrayList<String> imgList = new ArrayList<>();
+        for (int i = 0; i < jsonArr.length(); i++) {
+            imgList.add(jsonArr.get(i).toString());
+        }
+
+        int delay = obj.getInt("delay");
+
         command = new AnigifCommand();
-        byte[] gif = command.execute(model);
+        ImageModel imageModel = new ImageModel(imgList, delay);
+        byte[] gif = command.execute(imageModel);
 
         return gif;
     }
