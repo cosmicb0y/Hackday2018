@@ -1,6 +1,7 @@
 package com.hackday.anigif.command;
 
 import com.hackday.anigif.model.ImageModel;
+import magick.ImageInfo;
 import magick.MagickException;
 import magick.MagickImage;
 
@@ -29,9 +30,14 @@ public class AnigifCommand extends FileManager implements AniCommand {
             System.out.println("error while making gif");
         }
 
-        writeImg(gifImage, image.getResultPath() +  getFileName(image.getImageName()) + "-animated.gif");
+        try {
+            gifImage.setFileName(image.getResultPath() + getFileName(image.getImageList().get(0)) + "-animated.gif");
+            gifImage.writeImage(new ImageInfo());
+        } catch (MagickException e) {
+            System.out.println("error while writing gif");
+        }
 
-        byte[] gifByte = ImageToByte(image.getResultPath() +  getFileName(image.getImageName()) + "-animated.gif");
+        byte[] gifByte = ImageToByte(image.getResultPath() +  getFileName(image.getImageList().get(0)) + "-animated.gif");
 
 
         return gifByte;

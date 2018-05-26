@@ -85,7 +85,7 @@ public class AniController {
     }
 
 
-    @GetMapping(value = "/break/{name:.+}", produces = "application/json", headers="Content-type=application/json")
+    @GetMapping(value = "/break/{name:.+}", produces = "application/json", headers="")
     @ResponseBody
     public String breakFrame(@PathVariable String name) {
         System.out.println("breakFrame()");
