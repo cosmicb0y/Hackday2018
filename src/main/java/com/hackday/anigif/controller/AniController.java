@@ -85,26 +85,24 @@ public class AniController {
     }
 
 
-    @GetMapping(value = "/break/{name:.+}", produces = "application/json", headers="")
+    @GetMapping(value = "/break", produces = "application/json")
     @ResponseBody
-    public String breakFrame(@PathVariable String name) {
+    public String breakFrame(@RequestParam(value = "image") String param) {
         System.out.println("breakFrame()");
 
         String[] gifExtention = {"gif"};
 
-        if (!checkExtension(name, gifExtention)) {
+        if (!checkExtension(param, gifExtention)) {
             System.out.println("There is image file doesn't gif");
             return null;
         }
 
         BreakCommand command = new BreakCommand();
-        ImageModel imageModel = new ImageModel(name);
+        ImageModel imageModel = new ImageModel(param);
         int imageNum = command.execute(imageModel);
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("number", imageNum);
-
-
 
         return map.toString();
     }
